@@ -1,0 +1,15 @@
+
+
+.book-details {
+    padding: 6rem 0;
+}
+
+.back-btn {
+    margin-left: 20px;
+    margin-bottom: 2.6rem;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    color: var(--ungu);
+}
