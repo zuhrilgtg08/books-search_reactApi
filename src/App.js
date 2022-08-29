@@ -4,7 +4,7 @@ const URL = "http://openlibrary.org/search.json?title=";
 const AppContext = React.createContext();
 
 const AppProvider = ({children}) => {
-    const [search, setSearch] = useState("Atomic Habits");
+    const [searchTerm, setSearchTerm] = useState("Cari Buku...");
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [resultTitle, setResultTitle] = useState("");
@@ -13,20 +13,21 @@ const AppProvider = ({children}) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`${URL}${search}`);
+            const response = await fetch(`${URL}${searchTerm}`);
             const data = await response.json();
-            const {result} = data;
+            const {docs} = data;
+            console.log(data);
 
-            if(result) {
-                const newBooks = result.slice(0, 20).map((book) => {
-                    const {key, author_name, cover_id, edition_count, publish_year, title} = book;
+            if(docs) {
+                const newBooks = docs.slice(0, 20).map((bookSingle) => {
+                    const {key, author_name, cover_i, edition_count, first_publish_year, title} = bookSingle;
 
                     return {
                         id: key,
                         author: author_name,
-                        cover_id: cover_id,
+                        cover_id: cover_i,
                         edition_count: edition_count,
-                        first_publish_year: publish_year,
+                        first_publish_year: first_publish_year,
                         title: title
                     }
                 });
@@ -47,15 +48,15 @@ const AppProvider = ({children}) => {
             console.log(error);
             setLoading(false);
         }
-    }, [search]);
+    }, [searchTerm]);
 
     useEffect(() => {
         fetchBooks();
-    }, [search, fetchBooks]);
+    }, [searchTerm, fetchBooks]);
 
     return (
         <AppContext.Provider value = {{ 
-            loading, books, setSearch, resultTitle, setResultTitle
+            loading, books, setSearchTerm, resultTitle, setResultTitle,
         }}>
             {children}
         </AppContext.Provider>

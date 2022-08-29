@@ -1,0 +1,20 @@
+@import "../../index.css";
+
+.search-form {
+    width: 100%;
+    max-width: 680px;
+}
+
+.search-form-element {
+    padding: 1.4rem 2.8rem;
+    border-radius: 3.8rem;
+}
+
+.search-form-element .form-control {
+    font-size: 2rem;
+    padding: 0.6rem;
+}
+
+.search-form-element .form-control::placeholder {
+    opacity: .9;
+}
